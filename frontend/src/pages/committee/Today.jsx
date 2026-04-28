@@ -64,7 +64,8 @@ export default function CommitteeToday() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
-        .csc::-webkit-scrollbar{display:none}.csc{-ms-overflow-style:none;scrollbar-width:none}
+        .csc::-webkit-scrollbar{width:8px}.csc::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:10px}.csc::-webkit-scrollbar-thumb{background:rgba(139,92,246,0.3);border-radius:10px}.csc::-webkit-scrollbar-thumb:hover{background:rgba(139,92,246,0.5)}
+        .csc{-ms-overflow-style:auto;scrollbar-width:thin}
         .cmc{transition:transform 0.2s}.cmc:hover{transform:translateY(-2px)}
         .cec{transition:transform 0.18s}.cec:hover{transform:translateY(-2px)}
         @keyframes cfu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -105,7 +106,17 @@ export default function CommitteeToday() {
               const c=mealColors[meal];
               return (
                 <div key={meal} className="cmc cfu" style={{borderRadius:'14px',background:c.bg,border:`1px solid ${c.border}`,overflow:'hidden',animationDelay:`${idx*0.07}s`}}>
-                  <div style={{position:'relative',height:'120px',overflow:'hidden'}}>
+                  {/* Dish name above photo */}
+                  <div style={{
+                    padding:'10px 14px',
+                    background:'rgba(8,5,16,0.3)',
+                    borderBottom:`1px solid ${c.border}`,
+                  }}>
+                    <p style={{margin:0,color:'#faf5ff',fontSize:'14px',fontWeight:600,textAlign:'center'}}>{data.name}</p>
+                  </div>
+
+                  {/* Meal photo - INCREASED HEIGHT */}
+                  <div style={{position:'relative',height:'170px',overflow:'hidden'}}>
                     <img src={data.photo} alt={data.name} style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>e.target.style.display='none'}/>
                     <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(8,5,16,0.85) 0%,transparent 60%)'}}/>
                     <div style={{position:'absolute',top:'10px',left:'12px',display:'flex',alignItems:'center',gap:'5px',padding:'3px 9px',borderRadius:'20px',background:'rgba(8,5,16,0.7)',backdropFilter:'blur(8px)',border:`1px solid ${c.border}`}}>
@@ -118,8 +129,7 @@ export default function CommitteeToday() {
                     </div>
                   </div>
                   <div style={{padding:'10px 14px'}}>
-                    <p style={{margin:0,color:'#faf5ff',fontSize:'14px',fontWeight:600}}>{data.name}</p>
-                    <p style={{margin:'3px 0 0',color:'#4b5563',fontSize:'12px'}}>{mealTimes[meal]}</p>
+                    <p style={{margin:0,color:'#4b5563',fontSize:'12px',textAlign:'center'}}>{mealTimes[meal]}</p>
                   </div>
                 </div>
               );

@@ -20,6 +20,7 @@ import SChats     from '../pages/student/Chats';
 import SHelp      from '../pages/student/Help';
 import SInOut     from '../pages/student/In-Out';
 import SProfile   from '../pages/student/Profile';
+import PSettings   from '../pages/student/Settings';
 
 // ── Faculty Pages ──
 import FToday      from '../pages/faculty/Today';
@@ -72,6 +73,7 @@ export default function AppRoutes() {
         <Route path="help"      element={<SHelp />} />
         <Route path="in-out"    element={<SInOut />} />
         <Route path="profile"   element={<SProfile />} />
+        <Route path="settings"    element={<PSettings />} />
       </Route>
 
       {/* ════════════════════════════════

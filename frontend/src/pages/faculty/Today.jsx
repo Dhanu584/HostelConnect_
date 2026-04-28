@@ -47,12 +47,24 @@ export default function FacultyToday() {
   const [events,  setEvents]  = useState(defaultEvents);
   const [editMeal,setEditMeal]= useState(null);
   const [mDraft,  setMDraft]  = useState({name:'',photo:''});
+  const [imageFile, setImageFile] = useState(null);
   const [showEvt, setShowEvt] = useState(false);
   const [editEvt, setEditEvt] = useState(null);
   const [eDraft,  setEDraft]  = useState({title:'',date:'',time:'',category:'General',description:''});
 
-  const openMealEdit=(day,meal)=>{ setEditMeal({day,meal}); setMDraft({...menu[day][meal]}); };
-  const saveMeal=()=>{ setMenu(p=>({...p,[editMeal.day]:{...p[editMeal.day],[editMeal.meal]:{...mDraft}}})); setEditMeal(null); };
+  const openMealEdit=(day,meal)=>{ setEditMeal({day,meal}); setMDraft({...menu[day][meal]}); setImageFile(null); };
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setMDraft(p => ({ ...p, photo: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const saveMeal=()=>{ setMenu(p=>({...p,[editMeal.day]:{...p[editMeal.day],[editMeal.meal]:{...mDraft}}})); setEditMeal(null); setImageFile(null); };
 
   const openNew=()=>{ setEditEvt(null); setEDraft({title:'',date:'',time:'',category:'General',description:''}); setShowEvt(true); };
   const openEdit=(ev)=>{ setEditEvt(ev); setEDraft({title:ev.title,date:ev.date,time:ev.time,category:ev.category,description:ev.description}); setShowEvt(true); };
@@ -68,7 +80,8 @@ export default function FacultyToday() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
-        .fsc::-webkit-scrollbar{display:none}.fsc{-ms-overflow-style:none;scrollbar-width:none}
+        .fsc::-webkit-scrollbar{width:8px}.fsc::-webkit-scrollbar-track{background:rgba(255,255,255,0.05);border-radius:10px}.fsc::-webkit-scrollbar-thumb{background:rgba(16,185,129,0.3);border-radius:10px}.fsc::-webkit-scrollbar-thumb:hover{background:rgba(16,185,129,0.5)}
+        .fsc{-ms-overflow-style:auto;scrollbar-width:thin}
         .fmc{transition:transform 0.2s,box-shadow 0.2s}.fmc:hover{transform:translateY(-2px)}
         .feb{opacity:0;transition:opacity 0.18s}.fmc:hover .feb{opacity:1}
         .fec{transition:transform 0.18s}.fec:hover{transform:translateY(-2px)}
@@ -110,7 +123,17 @@ export default function FacultyToday() {
               const c=mealColors[meal];
               return (
                 <div key={meal} className="fmc ffu" style={{borderRadius:'14px',background:c.bg,border:`1px solid ${c.border}`,overflow:'hidden',animationDelay:`${idx*0.07}s`,position:'relative'}}>
-                  <div style={{position:'relative',height:'130px',overflow:'hidden'}}>
+                  {/* Dish name above photo */}
+                  <div style={{
+                    padding:'10px 14px',
+                    background:'rgba(5,14,10,0.3)',
+                    borderBottom:`1px solid ${c.border}`,
+                  }}>
+                    <p style={{margin:0,color:'#ecfdf5',fontSize:'14px',fontWeight:600,textAlign:'center'}}>{data.name}</p>
+                  </div>
+
+                  {/* Meal photo - INCREASED HEIGHT */}
+                  <div style={{position:'relative',height:'180px',overflow:'hidden'}}>
                     <img src={data.photo} alt={data.name} style={{width:'100%',height:'100%',objectFit:'cover'}} onError={e=>e.target.style.display='none'}/>
                     <div style={{position:'absolute',inset:0,background:'linear-gradient(to top,rgba(5,14,10,0.85) 0%,transparent 60%)'}}/>
                     <div style={{position:'absolute',top:'10px',left:'12px',display:'flex',alignItems:'center',gap:'5px',padding:'3px 9px',borderRadius:'20px',background:'rgba(5,14,10,0.7)',backdropFilter:'blur(8px)',border:`1px solid ${c.border}`}}>
@@ -123,8 +146,7 @@ export default function FacultyToday() {
                     </button>
                   </div>
                   <div style={{padding:'10px 14px'}}>
-                    <p style={{margin:0,color:'#ecfdf5',fontSize:'14px',fontWeight:600}}>{data.name}</p>
-                    <p style={{margin:'3px 0 0',color:'#4b5563',fontSize:'12px'}}>{mealTimes[meal]}</p>
+                    <p style={{margin:0,color:'#4b5563',fontSize:'12px',textAlign:'center'}}>{mealTimes[meal]}</p>
                   </div>
                 </div>
               );
@@ -187,14 +209,19 @@ export default function FacultyToday() {
                 <input style={inp()} value={mDraft.name} onChange={e=>setMDraft(p=>({...p,name:e.target.value}))} placeholder="e.g. Poha & Masala Chai"/>
               </div>
               <div>
-                <label style={{display:'block',color:'#6b7280',fontSize:'12px',fontWeight:600,marginBottom:'6px',textTransform:'uppercase',letterSpacing:'0.5px'}}>Photo URL</label>
-                <input style={inp()} value={mDraft.photo} onChange={e=>setMDraft(p=>({...p,photo:e.target.value}))} placeholder="https://..."/>
+                <label style={{display:'block',color:'#6b7280',fontSize:'12px',fontWeight:600,marginBottom:'6px',textTransform:'uppercase',letterSpacing:'0.5px'}}>Upload Image</label>
+                <input 
+                  type="file" 
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  style={{...inp(), padding: '8px 12px', cursor: 'pointer'}}
+                />
               </div>
-              {mDraft.photo && <img src={mDraft.photo} alt="preview" style={{width:'100%',height:'120px',objectFit:'cover',borderRadius:'10px',border:'1px solid rgba(16,185,129,0.2)'}} onError={e=>e.target.style.display='none'}/>}
+              {mDraft.photo && <img src={mDraft.photo} alt="preview" style={{width:'100%',height:'140px',objectFit:'cover',borderRadius:'10px',border:'1px solid rgba(16,185,129,0.2)'}} onError={e=>e.target.style.display='none'}/>}
             </div>
             <div style={{display:'flex',gap:'10px',marginTop:'20px'}}>
               <button onClick={saveMeal} style={{flex:1,padding:'10px',borderRadius:'10px',border:'none',background:'linear-gradient(135deg,#10b981,#059669)',color:'#fff',fontWeight:600,cursor:'pointer',fontSize:'14px'}}>Save Changes</button>
-              <button onClick={()=>setEditMeal(null)} style={{flex:1,padding:'10px',borderRadius:'10px',border:'1px solid rgba(255,255,255,0.1)',background:'transparent',color:'#9ca3af',cursor:'pointer',fontSize:'14px'}}>Cancel</button>
+              <button onClick={()=>{setEditMeal(null);setImageFile(null);}} style={{flex:1,padding:'10px',borderRadius:'10px',border:'1px solid rgba(255,255,255,0.1)',background:'transparent',color:'#9ca3af',cursor:'pointer',fontSize:'14px'}}>Cancel</button>
             </div>
           </div>
         </div>

@@ -138,8 +138,11 @@ export default function Today() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
 
-        .today-scroll::-webkit-scrollbar { display: none; }
-        .today-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .today-scroll::-webkit-scrollbar { width: 8px; }
+        .today-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+        .today-scroll::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 10px; }
+        .today-scroll::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+        .today-scroll { -ms-overflow-style: auto; scrollbar-width: thin; }
 
         .meal-card { transition: transform 0.2s, box-shadow 0.2s; }
         .meal-card:hover { transform: translateY(-2px); }
@@ -230,8 +233,17 @@ export default function Today() {
                     animationDelay: `${idx * 0.08}s`,
                   }}
                 >
-                  {/* Meal photo */}
-                  <div style={{ position: 'relative', height: '140px', overflow: 'hidden' }}>
+                  {/* Dish name above photo */}
+                  <div style={{
+                    padding: '10px 16px',
+                    background: 'rgba(10,15,30,0.3)',
+                    borderBottom: `1px solid ${colors.border}`,
+                  }}>
+                    <p style={{ margin: 0, color: '#f1f5f9', fontSize: '15px', fontWeight: 600, textAlign: 'center' }}>{data.name}</p>
+                  </div>
+
+                  {/* Meal photo - INCREASED HEIGHT */}
+                  <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
                     <img
                       src={data.photo}
                       alt={data.name}
@@ -257,10 +269,9 @@ export default function Today() {
                     </div>
                   </div>
 
-                  {/* Meal name */}
+                  {/* Meal timing */}
                   <div style={{ padding: '12px 16px' }}>
-                    <p style={{ margin: 0, color: '#f1f5f9', fontSize: '15px', fontWeight: 600 }}>{data.name}</p>
-                    <p style={{ margin: '4px 0 0', color: '#475569', fontSize: '12px' }}>
+                    <p style={{ margin: 0, color: '#475569', fontSize: '12px', textAlign: 'center' }}>
                       {meal === 'Breakfast' ? '7:30 – 9:00 AM'
                         : meal === 'Lunch'  ? '12:30 – 2:00 PM'
                         : meal === 'Snacks' ? '4:30 – 5:30 PM'
