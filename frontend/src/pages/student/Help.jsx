@@ -187,7 +187,7 @@ export default function HelpStudent({ studentName = "Student" }) {
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%)",
+    background: "transparent",
     padding: "24px 16px",
     fontFamily: "'Segoe UI', system-ui, sans-serif",
   },
@@ -256,7 +256,7 @@ const styles = {
     transition: "color 0.2s",
   },
   submitBtn: {
-    background: "linear-gradient(135deg, #3b82f6, #2563eb)",
+    background: "#7c9e87",
     color: "#fff",
     border: "none",
     borderRadius: "9px",
@@ -265,7 +265,7 @@ const styles = {
     fontWeight: 600,
     cursor: "pointer",
     letterSpacing: "0.01em",
-    boxShadow: "0 2px 8px rgba(59,130,246,0.35)",
+    boxShadow: "0 4px 14px rgba(124,158,135,0.35)",
     transition: "all 0.2s",
   },
   listSection: {

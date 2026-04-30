@@ -34,9 +34,8 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Font import ── */}
       <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Fraunces:wght@600;700&display=swap"
         rel="stylesheet"
       />
 
@@ -46,10 +45,10 @@ export default function Navbar() {
         height: '62px',
         display: 'flex', alignItems: 'center',
         padding: '0 24px',
-        background: '#0a0f1e',
-        borderBottom: '1px solid rgba(99,102,241,0.15)',
-        backdropFilter: 'blur(12px)',
-        fontFamily: "'DM Sans', sans-serif",
+        background: '#ffffff',
+        borderBottom: '1.5px solid #e8eeea',
+        boxShadow: '0 2px 16px rgba(100,130,90,0.08)',
+        fontFamily: "'Nunito', sans-serif",
       }}>
 
         {/* ── LEFT: Logo ── */}
@@ -62,20 +61,20 @@ export default function Navbar() {
               padding: '6px 8px', borderRadius: '10px',
               transition: 'background 0.2s',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(99,102,241,0.08)'}
+            onMouseEnter={e => e.currentTarget.style.background = '#eef4f0'}
             onMouseLeave={e => e.currentTarget.style.background = 'none'}
           >
             <div style={{
-              width: '30px', height: '30px', borderRadius: '8px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+              width: '32px', height: '32px', borderRadius: '9px',
+              background: '#7c9e87',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '15px', flexShrink: 0,
-              boxShadow: '0 0 14px rgba(99,102,241,0.45)',
+              boxShadow: '0 4px 12px rgba(124,158,135,0.35)',
             }}>🏠</div>
             <span style={{
-              fontFamily: "'Syne', sans-serif",
-              fontSize: '18px', fontWeight: 800,
-              color: '#f1f5f9', letterSpacing: '-0.3px',
+              fontFamily: "'Fraunces', serif",
+              fontSize: '19px', fontWeight: 700,
+              color: '#1e293b', letterSpacing: '-0.2px',
               whiteSpace: 'nowrap',
             }}>
               HostelConnect
@@ -83,7 +82,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* ── CENTER: Nav Links (only when logged in) ── */}
+        {/* ── CENTER: Nav Links ── */}
         {user && (
           <div style={{
             flex: 1, display: 'flex', alignItems: 'center',
@@ -95,20 +94,20 @@ export default function Navbar() {
                 to={link.path}
                 style={({ isActive }) => ({
                   padding: '7px 18px',
-                  borderRadius: '8px',
+                  borderRadius: '10px',
                   textDecoration: 'none',
                   fontSize: '14px',
-                  fontWeight: 500,
-                  color: isActive ? '#a5b4fc' : '#94a3b8',
-                  background: isActive ? 'rgba(99,102,241,0.12)' : 'transparent',
-                  border: isActive ? '1px solid rgba(99,102,241,0.25)' : '1px solid transparent',
+                  fontWeight: isActive ? 700 : 600,
+                  color: isActive ? '#5a7a62' : '#94a3b8',
+                  background: isActive ? '#eef4f0' : 'transparent',
+                  border: isActive ? '1.5px solid #c2d9c7' : '1.5px solid transparent',
                   transition: 'all 0.2s',
                   whiteSpace: 'nowrap',
                 })}
                 onMouseEnter={e => {
-                  if (!e.currentTarget.classList.contains('active')) {
-                    e.currentTarget.style.color = '#c7d2fe';
-                    e.currentTarget.style.background = 'rgba(99,102,241,0.06)';
+                  if (!e.currentTarget.getAttribute('aria-current')) {
+                    e.currentTarget.style.color = '#5a7a62';
+                    e.currentTarget.style.background = '#f4f8f5';
                   }
                 }}
                 onMouseLeave={e => {
@@ -127,15 +126,14 @@ export default function Navbar() {
         {/* ── RIGHT: Hamburger OR Login/Signup ── */}
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '10px' }}>
           {user ? (
-            /* Hamburger button */
             <button
               onClick={() => setSidebarOpen(o => !o)}
               aria-label="Open menu"
               style={{
                 width: '38px', height: '38px',
                 borderRadius: '10px',
-                background: sidebarOpen ? 'rgba(99,102,241,0.15)' : 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(99,102,241,0.2)',
+                background: sidebarOpen ? '#eef4f0' : '#f8faf8',
+                border: `1.5px solid ${sidebarOpen ? '#c2d9c7' : '#e8eeea'}`,
                 cursor: 'pointer',
                 display: 'flex', flexDirection: 'column',
                 alignItems: 'center', justifyContent: 'center', gap: '5px',
@@ -147,7 +145,7 @@ export default function Navbar() {
                   display: 'block',
                   width: i === 1 ? '12px' : '18px',
                   height: '2px',
-                  background: sidebarOpen ? '#a5b4fc' : '#94a3b8',
+                  background: sidebarOpen ? '#7c9e87' : '#94a3b8',
                   borderRadius: '2px',
                   transition: 'all 0.25s',
                   transformOrigin: 'center',
@@ -161,31 +159,30 @@ export default function Navbar() {
               ))}
             </button>
           ) : (
-            /* Login / Signup buttons for logged-out state */
             <>
               <button
                 onClick={() => navigate('/login')}
                 style={{
-                  padding: '7px 18px', borderRadius: '8px',
+                  padding: '7px 18px', borderRadius: '10px',
                   background: 'transparent',
-                  border: '1px solid rgba(99,102,241,0.3)',
-                  color: '#94a3b8', fontSize: '14px', fontWeight: 500,
+                  border: '1.5px solid #c2d9c7',
+                  color: '#5a7a62', fontSize: '14px', fontWeight: 600,
                   cursor: 'pointer', transition: 'all 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = '#6366f1'; e.currentTarget.style.color = '#a5b4fc'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(99,102,241,0.3)'; e.currentTarget.style.color = '#94a3b8'; }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#eef4f0'; e.currentTarget.style.borderColor = '#7c9e87'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = '#c2d9c7'; }}
               >
                 Login
               </button>
               <button
                 onClick={() => navigate('/signup')}
                 style={{
-                  padding: '7px 18px', borderRadius: '8px',
-                  background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                  padding: '7px 18px', borderRadius: '10px',
+                  background: '#7c9e87',
                   border: 'none',
-                  color: '#fff', fontSize: '14px', fontWeight: 600,
+                  color: '#fff', fontSize: '14px', fontWeight: 700,
                   cursor: 'pointer', transition: 'opacity 0.2s',
-                  boxShadow: '0 0 14px rgba(99,102,241,0.3)',
+                  boxShadow: '0 4px 14px rgba(124,158,135,0.35)',
                 }}
                 onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
                 onMouseLeave={e => e.currentTarget.style.opacity = '1'}
@@ -197,55 +194,56 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ══════════════ RIGHT SIDEBAR ══════════════ */}
-      {/* Overlay */}
+      {/* ══════════════ SIDEBAR OVERLAY ══════════════ */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
           style={{
             position: 'fixed', inset: 0, top: '62px',
-            background: 'rgba(0,0,0,0.5)',
+            background: 'rgba(30,41,59,0.25)',
             zIndex: 98,
-            backdropFilter: 'blur(2px)',
+            backdropFilter: 'blur(3px)',
           }}
         />
       )}
 
-      {/* Sidebar Panel */}
+      {/* ══════════════ SIDEBAR PANEL ══════════════ */}
       <div style={{
         position: 'fixed', top: '62px', right: 0,
         height: 'calc(100vh - 62px)',
         width: '270px',
         transform: sidebarOpen ? 'translateX(0)' : 'translateX(100%)',
         transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        background: '#0d1424',
-        borderLeft: '1px solid rgba(99,102,241,0.15)',
+        background: '#ffffff',
+        borderLeft: '1.5px solid #e8eeea',
+        boxShadow: '-4px 0 24px rgba(100,130,90,0.10)',
         zIndex: 99,
         display: 'flex', flexDirection: 'column',
-        fontFamily: "'DM Sans', sans-serif",
+        fontFamily: "'Nunito', sans-serif",
         overflowY: 'auto',
       }}>
 
         {/* User info header */}
         <div style={{
           padding: '24px 20px 20px',
-          borderBottom: '1px solid rgba(99,102,241,0.1)',
+          borderBottom: '1.5px solid #e8eeea',
+          background: '#f8faf8',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: '44px', height: '44px', borderRadius: '50%', flexShrink: 0,
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+              background: '#7c9e87',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#fff', fontWeight: 700, fontSize: '18px',
-              boxShadow: '0 0 16px rgba(99,102,241,0.4)',
+              color: '#fff', fontWeight: 800, fontSize: '18px',
+              boxShadow: '0 4px 14px rgba(124,158,135,0.35)',
             }}>
               {user?.name?.[0]?.toUpperCase() || 'S'}
             </div>
             <div>
-              <p style={{ margin: 0, color: '#f1f5f9', fontWeight: 600, fontSize: '15px' }}>
+              <p style={{ margin: 0, color: '#1e293b', fontWeight: 700, fontSize: '15px' }}>
                 {user?.name || 'Student'}
               </p>
-              <p style={{ margin: '2px 0 0', color: '#64748b', fontSize: '12px' }}>
+              <p style={{ margin: '2px 0 0', color: '#94a3b8', fontSize: '12px', fontWeight: 500 }}>
                 {user?.email || ''}
               </p>
             </div>
@@ -253,18 +251,18 @@ export default function Navbar() {
           <div style={{
             marginTop: '12px',
             display: 'inline-flex', alignItems: 'center', gap: '5px',
-            padding: '3px 10px', borderRadius: '20px',
-            background: 'rgba(99,102,241,0.12)',
-            border: '1px solid rgba(99,102,241,0.2)',
+            padding: '4px 11px', borderRadius: '20px',
+            background: '#eef4f0',
+            border: '1.5px solid #c2d9c7',
           }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#6366f1', display: 'inline-block' }} />
-            <span style={{ color: '#a5b4fc', fontSize: '11px', fontWeight: 600, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Student</span>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#7c9e87', display: 'inline-block' }} />
+            <span style={{ color: '#5a7a62', fontSize: '11px', fontWeight: 800, letterSpacing: '0.5px', textTransform: 'uppercase' }}>Student</span>
           </div>
         </div>
 
         {/* Nav links */}
         <div style={{ padding: '16px 12px', flex: 1 }}>
-          <p style={{ color: '#475569', fontSize: '11px', fontWeight: 600, letterSpacing: '0.8px', textTransform: 'uppercase', margin: '0 8px 10px' }}>Menu</p>
+          <p style={{ color: '#94a3b8', fontSize: '11px', fontWeight: 700, letterSpacing: '0.8px', textTransform: 'uppercase', margin: '0 8px 10px' }}>Menu</p>
 
           {sidebarLinks.map(link => (
             <NavLink
@@ -273,30 +271,32 @@ export default function Navbar() {
               onClick={() => setSidebarOpen(false)}
               style={({ isActive }) => ({
                 display: 'flex', alignItems: 'center', gap: '12px',
-                padding: '11px 12px', borderRadius: '10px',
+                padding: '11px 12px', borderRadius: '12px',
                 textDecoration: 'none',
-                color: isActive ? '#a5b4fc' : '#94a3b8',
-                background: isActive ? 'rgba(99,102,241,0.12)' : 'transparent',
-                border: isActive ? '1px solid rgba(99,102,241,0.2)' : '1px solid transparent',
-                fontSize: '14px', fontWeight: isActive ? 600 : 400,
+                color: isActive ? '#5a7a62' : '#64748b',
+                background: isActive ? '#eef4f0' : 'transparent',
+                border: isActive ? '1.5px solid #c2d9c7' : '1.5px solid transparent',
+                fontSize: '14px', fontWeight: isActive ? 700 : 600,
                 marginBottom: '4px',
                 transition: 'all 0.18s',
               })}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(99,102,241,0.07)';
-                e.currentTarget.style.color = '#c7d2fe';
+                if (!e.currentTarget.getAttribute('aria-current')) {
+                  e.currentTarget.style.background = '#f4f8f5';
+                  e.currentTarget.style.color = '#5a7a62';
+                }
               }}
               onMouseLeave={e => {
                 if (!e.currentTarget.getAttribute('aria-current')) {
                   e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.color = '#94a3b8';
+                  e.currentTarget.style.color = '#64748b';
                 }
               }}
             >
               <span style={{
-                width: '32px', height: '32px', borderRadius: '8px',
-                background: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                width: '32px', height: '32px', borderRadius: '9px',
+                background: '#f0f4f0',
+                border: '1.5px solid #e2ebe4',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: '15px', flexShrink: 0,
               }}>
@@ -308,24 +308,25 @@ export default function Navbar() {
         </div>
 
         {/* Logout at bottom */}
-        <div style={{ padding: '16px 12px', borderTop: '1px solid rgba(99,102,241,0.1)' }}>
+        <div style={{ padding: '16px 12px', borderTop: '1.5px solid #e8eeea' }}>
           <button
             onClick={handleLogout}
             style={{
               width: '100%', display: 'flex', alignItems: 'center', gap: '12px',
-              padding: '11px 12px', borderRadius: '10px',
-              background: 'rgba(239,68,68,0.06)',
-              border: '1px solid rgba(239,68,68,0.15)',
-              color: '#f87171', cursor: 'pointer',
-              fontSize: '14px', fontWeight: 500,
+              padding: '11px 12px', borderRadius: '12px',
+              background: '#fef2f2',
+              border: '1.5px solid #fecaca',
+              color: '#ef4444', cursor: 'pointer',
+              fontSize: '14px', fontWeight: 600,
               transition: 'all 0.18s',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.12)'; e.currentTarget.style.borderColor = 'rgba(239,68,68,0.3)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(239,68,68,0.06)'; e.currentTarget.style.borderColor = 'rgba(239,68,68,0.15)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#fee2e2'; e.currentTarget.style.borderColor = '#fca5a5'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#fef2f2'; e.currentTarget.style.borderColor = '#fecaca'; }}
           >
             <span style={{
-              width: '32px', height: '32px', borderRadius: '8px',
-              background: 'rgba(239,68,68,0.08)',
+              width: '32px', height: '32px', borderRadius: '9px',
+              background: '#fef2f2',
+              border: '1.5px solid #fecaca',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '15px',
             }}>🚪</span>

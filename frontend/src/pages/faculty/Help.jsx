@@ -16,7 +16,7 @@ function saveProblems(problems) {
 
 export default function HelpFaculty({ facultyName = "Faculty" }) {
   const [problems, setProblems] = useState([]);
-  const [filter, setFilter] = useState("all"); // "all" | "pending" | "solved"
+  const [filter, setFilter] = useState("all");
   const [confirmId, setConfirmId] = useState(null);
 
   const loadAndClean = () => {
@@ -113,8 +113,9 @@ export default function HelpFaculty({ facultyName = "Faculty" }) {
             key={f}
             style={{
               ...styles.filterPill,
-              background: filter === f ? "#0f172a" : "#f1f5f9",
+              background: filter === f ? "#7c9e87" : "#f1f5f9",
               color: filter === f ? "#fff" : "#64748b",
+              boxShadow: filter === f ? "0 4px 14px rgba(124,158,135,0.3)" : "none",
             }}
             onClick={() => setFilter(f)}
           >
@@ -147,7 +148,6 @@ export default function HelpFaculty({ facultyName = "Faculty" }) {
                 opacity: p.solved ? 0.92 : 1,
               }}
             >
-              {/* Card Top */}
               <div style={styles.cardTop}>
                 <div style={styles.problemTextWrap}>
                   <p style={styles.problemText}>{p.text}</p>
@@ -167,7 +167,6 @@ export default function HelpFaculty({ facultyName = "Faculty" }) {
                   </div>
                 </div>
 
-                {/* Checkbox / Tick */}
                 <div style={styles.actionArea}>
                   {p.solved ? (
                     <div style={styles.solvedGroup}>
@@ -225,7 +224,7 @@ export default function HelpFaculty({ facultyName = "Faculty" }) {
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "linear-gradient(135deg, #fafafa 0%, #f0f4ff 60%, #f0fdf4 100%)",
+    background: "transparent",
     padding: "24px 16px",
     fontFamily: "'Segoe UI', system-ui, sans-serif",
   },
@@ -372,7 +371,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "7px",
-    background: "linear-gradient(135deg, #fff7ed, #ffedd5)",
+    background: "#fff7ed",
     border: "1.5px solid #fed7aa",
     borderRadius: "10px",
     padding: "8px 16px",
