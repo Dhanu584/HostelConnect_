@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 
 const centerNavLinks = [
   { label: 'Today', path: '/student/today' },
-  { label: 'Chats', path: '/student/chats' },
+  // { label: 'Chats', path: '/student/chats' },
   { label: 'Help',  path: '/student/help'  },
 ];
 

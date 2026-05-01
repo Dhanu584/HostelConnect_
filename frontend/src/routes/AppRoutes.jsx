@@ -16,7 +16,7 @@ import RoleRedirect from '../pages/auth/RoleRedirect';
 import SToday     from '../pages/student/Today';
 import SAdmission from '../pages/student/Admission';
 import SBuySell   from '../pages/student/Buy-Sell';
-import SChats     from '../pages/student/Chats';
+// import SChats     from '../pages/student/Chats';
 import SHelp      from '../pages/student/Help';
 import SInOut     from '../pages/student/In-Out';
 import SProfile   from '../pages/student/Profile';
@@ -25,7 +25,7 @@ import PSettings   from '../pages/student/Settings';
 // ── Faculty Pages ──
 import FToday      from '../pages/faculty/Today';
 import FAdmission  from '../pages/faculty/Admission';
-import FChats      from '../pages/faculty/Chats';
+// import FChats      from '../pages/faculty/Chats';
 import FHelp       from '../pages/faculty/Help';
 import FInOut      from '../pages/faculty/In-Out';
 import FProfile    from '../pages/faculty/Profile';
@@ -35,7 +35,7 @@ import FStudents   from '../pages/faculty/StudentsInfo';
 // ── Committee Pages ──
 import CToday    from '../pages/committee/Today';
 import CBuySell  from '../pages/committee/Buy-Sell';
-import CChats    from '../pages/committee/Chats';
+// import CChats    from '../pages/committee/Chats';
 import CHelp     from '../pages/committee/Help';
 import CProfile  from '../pages/committee/Profile';
 import CSettings from '../pages/committee/Settings';
@@ -69,7 +69,7 @@ export default function AppRoutes() {
         <Route path="today"     element={<SToday />} />
         <Route path="admission" element={<SAdmission />} />
         <Route path="buy-sell"  element={<SBuySell />} />
-        <Route path="chats"     element={<SChats />} />
+        {/* <Route path="chats"     element={<SChats />} /> */}
         <Route path="help"      element={<SHelp />} />
         <Route path="in-out"    element={<SInOut />} />
         <Route path="profile"   element={<SProfile />} />
@@ -87,7 +87,7 @@ export default function AppRoutes() {
         <Route index              element={<FToday />} />
         <Route path="today"       element={<FToday />} />
         <Route path="admission"   element={<FAdmission />} />
-        <Route path="chats"       element={<FChats />} />
+        {/* <Route path="chats"       element={<FChats />} /> */}
         <Route path="help"        element={<FHelp />} />
         <Route path="in-out"      element={<FInOut />} />
         <Route path="profile"     element={<FProfile />} />
@@ -106,7 +106,7 @@ export default function AppRoutes() {
         <Route index           element={<CToday />} />
         <Route path="today"    element={<CToday />} />
         <Route path="buy-sell" element={<CBuySell />} />
-        <Route path="chats"    element={<CChats />} />
+        {/* <Route path="chats"    element={<CChats />} /> */}
         <Route path="help"     element={<CHelp />} />
         <Route path="profile"  element={<CProfile />} />
         <Route path="settings" element={<CSettings />} />

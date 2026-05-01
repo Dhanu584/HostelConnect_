@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 
 const centerLinks = [
   { label: 'Today', path: '/student/today' },
-  { label: 'Chats', path: '/student/chats' },
+  // { label: 'Chats', path: '/student/chats' },
   { label: 'Help',  path: '/student/help'  },
 ];
 
